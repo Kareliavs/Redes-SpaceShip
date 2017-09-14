@@ -49,7 +49,7 @@ void imprimir ()
 {   
     //system ("/usr/bin/clear");
     //cout<<"*******************************************************"<<endl;
-    clear();
+   clear();
     for(int i =0; i<dimension; i++)
      {  
         for(int j =0; j<dimension; j++)
@@ -70,12 +70,16 @@ void imprimir ()
 
 void balas (int a , int b, int direccion)
 {   //inicia(dimension);
+    
     char bala= '|';
-    switch (direccion) 
+    //cout<<"HERE"<<direccion<<endl;
+    int dir=direccion-48;
+    switch (dir) 
     {
         case 8://Arriba
+
           for(int i=0; i<a;i++)///a es y 
-            {
+            {   
                 matrix[i][b]=bala;
                   /*sleep(1/2);
                 matrix[i][b]='-';*/
@@ -183,7 +187,7 @@ void main_no_main(char buffer[7])
 
     
     if(dispara>0)buffer[0]='S';//strcat(buffer,"1");
-    else         buffer[0]='D';//strcat(buffer,"0");
+    else         buffer[0]='M';//strcat(buffer,"0");
 
     if(a<=9) strcat(buffer,"0"); 
     sprintf(integer_string, "%d", a);
@@ -204,7 +208,7 @@ void main_no_main(char buffer[7])
         strcat(buffer,integer_string); 
     }
    
-    if(dispara>0) balas(a,b, dispara);
+    //if(dispara>0) balas(a,b, dispara);
     dispara=0;
     //imprimir();
 

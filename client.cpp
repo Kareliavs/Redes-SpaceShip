@@ -22,7 +22,7 @@
  int n;
 
 
- void update_bala(char dir)
+ void update_bala(char dir,int a, int b)
  {
   switch (dir) 
   {
@@ -78,10 +78,12 @@
  { 
          if(dir=='6')
          {
-           matrix[x][mod(y-1,dimension)]='_';matrix[(x+1)][mod(y-1,dimension)]='_';
+           matrix[x][mod(y-1,dimension)]='_';
+           matrix[(x+1)][mod(y-1,dimension)]='_';
            if(y-1<0)
            {
-             matrix[x][mod(y-2,dimension)]='_';matrix[(x+1)][mod(y-2,dimension)]='_';
+             matrix[x][mod(y-2,dimension)]='_';
+             matrix[(x+1)][mod(y-2,dimension)]='_';
            }
          }
          if(dir=='4')
@@ -123,14 +125,14 @@
        //initscr ();
        teclas();
        //cbreak ();
-       main_no_main(buffer);
-       //imprimir();
-       //cout<<"Buffer: "<<buffer<<endl;
-       n = write(SocketFD, buffer, sizeof(buffer));
        for (int i = 0; i < sizeof(buffer); i++)
        {
            buffer[i] = '\0';
        } 
+       main_no_main(buffer);
+       n = write(SocketFD, buffer, sizeof(buffer));
+
+       
        /* perform read write operations ... */
        
      }
@@ -158,10 +160,12 @@
       
 
       cuadrado(a,b,'A'+ buffer[0]);
-      
       update(buffer[6],a,b,buffer[1]);
+      
+      if(buffer[1]=='S')balas(a,b, buffer[6]);
       imprimir();
-      if(buffer[1]=='S')update_bala(buffer[6]);
+      update_bala(buffer[6],a,b);
+
       
       //cout<<"Server replay: "<<buffer<<endl;
      
@@ -185,7 +189,7 @@
 
    stSockAddr.sin_family = AF_INET;
    stSockAddr.sin_port = htons(1100);
-   Res = inet_pton(AF_INET, "192.168.199.171", &stSockAddr.sin_addr);
+   Res = inet_pton(AF_INET, "192.168.1.2", &stSockAddr.sin_addr);
 
    if (0 > Res)
    {
