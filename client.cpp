@@ -120,7 +120,6 @@
  {
      while(true)
      {
-       //cout<<"HERE"<<endl;
        char buffer[7];
        //initscr ();
        teclas();
@@ -131,10 +130,6 @@
        } 
        main_no_main(buffer);
        n = write(SocketFD, buffer, sizeof(buffer));
-
-       
-       /* perform read write operations ... */
-       
      }
 
  }
@@ -143,18 +138,18 @@
     while(true)
     {
       char * buffer;
-      buffer = new char[2];
+      buffer = new char[4];
       n = read(SocketFD,buffer,sizeof(buffer));
       if (n < 0) perror("ERROR reading from socket");
       
       if (buffer[1] =='M' || buffer[1] =='S') {
-        buffer = new char[7];
+        buffer = new char[9];
         string ac ;
         string ab ;
-        ac += buffer[2];
-        ac += buffer[3];
-        ab += buffer[4];
-        ab += buffer[5];
+        ac += buffer[4];
+        ac += buffer[5];
+        ab += buffer[6];
+        ab += buffer[7];
         //cout<<"ac: "<<ac<<" ab: "<<ab<<endl;
         int a = stoi(ac);                  //De char a entero
         int b = stoi(ab);
@@ -162,7 +157,7 @@
         
 
         cuadrado(a,b,'A' + buffer[0]);
-        update(buffer[6], a, b, buffer[1]);
+        update(buffer[8], a, b, buffer[1]);
         if (buffer[1] =='S') {
           balas(a, b, buffer[6]);
         }
@@ -171,8 +166,7 @@
         
       }
       imprimir();
-      update_bala(buffer[6], a, b);
-
+      update_bala(buffer[8], a, b);
       
       //cout<<"Server replay: "<<buffer<<endl;
      

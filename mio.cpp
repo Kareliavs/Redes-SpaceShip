@@ -198,31 +198,32 @@ void main_no_main(char buffer[7])
     char integer_string[32];
 
     
-    if(dispara>0 && dispara<100)buffer[0]='S';//strcat(buffer,"1");
-    if(chat_flag) buffer[0]='C'; 
-    else         buffer[0]='M';//strcat(buffer,"0");
-
-    if(a<=9) strcat(buffer,"0"); 
-    sprintf(integer_string, "%d", a);
-    strcat(buffer,integer_string); 
-
-    if(b<=9) strcat(buffer,"0"); 
-    sprintf(integer_string, "%d", b);
-    strcat(buffer,integer_string); 
-    
-    if(dispara>0)
-    {
-        sprintf(integer_string, "%d", dispara);
-        strcat(buffer,integer_string); 
-    }
+    if (dispara > 0) 
+      buffer[0]='S'; //strcat(buffer,"1");
+    if (chat_flag) 
+      buffer[0]='C'; 
     else
-    {
+      buffer[0]='M'; //strcat(buffer,"0");
+
+    if (a <= 9) 
+      strcat(buffer, "0");
+    
+    sprintf(integer_string, "%d", a);
+    strcat(buffer, integer_string);
+
+    if (b <= 9)
+      strcat(buffer,"0"); 
+    
+    sprintf(integer_string, "%d", b);
+    strcat(buffer, integer_string); 
+    
+    if (dispara > 0) {
+        sprintf(integer_string, "%d", dispara);
+        strcat(buffer, integer_string);
+    } else {
         sprintf(integer_string, "%d", direccion);
-        strcat(buffer,integer_string); 
+        strcat(buffer, integer_string); 
     }
    
-    //if(dispara>0) balas(a,b, dispara);
     dispara=0;
-    //imprimir();
-
 }

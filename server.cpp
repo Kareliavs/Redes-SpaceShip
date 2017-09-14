@@ -21,7 +21,7 @@ using namespace std;
 
 struct sockaddr_in stSockAddr;                
 int SocketFD = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP); //Se trabaja con protocolo TCP Handshaking
-char buffer[7];
+char * buffer;
 int n;
 vector<int> iD;
 
@@ -29,6 +29,7 @@ vector<int> iD;
 void aceptClient(int ConnectFD) {
   do {
    //bzero(buffer,256); //Llena de 0 la cadena
+     buffer = new char[4];
      n = read(ConnectFD,buffer,sizeof(buffer));
      if (n < 0) perror("ERROR reading from socket");
      cout<<"Client "<<ConnectFD<< " replay: "<<buffer<<endl;
