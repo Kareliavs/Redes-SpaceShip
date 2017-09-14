@@ -47,21 +47,23 @@ void inicia(int dim)
 
 void imprimir ()
 {   
-    system ("/usr/bin/clear");
-    cout<<"*******************************************************"<<endl;
+    //system ("/usr/bin/clear");
+    //cout<<"*******************************************************"<<endl;
+    clear();
     for(int i =0; i<dimension; i++)
      {  
         for(int j =0; j<dimension; j++)
          {
-            cout<<matrix[i][j];
-            //printw ("%c", matrix[i][j]);
+            //cout<<matrix[i][j];
+            printw ("%c", matrix[i][j]);
          }
-         cout<<endl;
+        // cout<<endl;
          //printf("\n");
-         //printw("\n");
+         printw("\n");
      }
-     cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++w"<<endl;
+     //cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++w"<<endl;
      cbreak();
+     refresh();
      //cout<<endl;
      
 }
@@ -129,7 +131,7 @@ vector< pair <int, pair<int, int> > > usuarios;
 int teclas ()
 {
     
-    initscr ();
+    //initscr ();
     //cbreak ();
     tecla = getch ();
 
@@ -162,7 +164,7 @@ int teclas ()
     if(tecla==55)dispara=7; //7
     if(a<0)a=dimension-2;
     if(b<0)b=dimension-2;
-    endwin ();
+    //endwin ();
 }
 void cuadrado( int x, int y, char letra )
 {   //inicia(dimension);
