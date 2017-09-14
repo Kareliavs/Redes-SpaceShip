@@ -183,29 +183,55 @@ void main_no_main(char buffer[7])
 {
     //cout<<"HEREL"<<endl;
     //teclas();
-    char integer_string[32];
+    string integer_string;
 
     
     if(dispara>0)buffer[0]='S';//strcat(buffer,"1");
     else         buffer[0]='M';//strcat(buffer,"0");
 
-    if(a<=9) strcat(buffer,"0"); 
-    sprintf(integer_string, "%d", a);
-    strcat(buffer,integer_string); 
+    //sprintf(integer_string, "%d", a);
+    integer_string=to_string(a);
+    if(a<=9)
+    {
+      buffer[1]='0';
+      buffer[2]=integer_string[0];
+    } 
+    else
+    {
+      buffer[1]=integer_string[0];
+      buffer[2]=integer_string[1];
+    }
 
-    if(b<=9) strcat(buffer,"0"); 
-    sprintf(integer_string, "%d", b);
-    strcat(buffer,integer_string); 
+    //strcat(buffer,integer_string); 
+    integer_string=to_string(b);
+
+    if(b<=9)
+    {
+      buffer[3]='0';
+      buffer[4]=integer_string[0]; 
+
+    } 
+    else
+    {
+      buffer[3]=integer_string[0];
+      buffer[4]=integer_string[1];
+    }
+    //sprintf(integer_string, "%d", b);
+    //strcat(buffer,integer_string); 
     
     if(dispara>0)
     {
-        sprintf(integer_string, "%d", dispara);
-        strcat(buffer,integer_string); 
+        integer_string=to_string(dispara);
+        //sprintf(integer_string, "%d", dispara);
+        //strcat(buffer,integer_string); 
+        buffer[5]=integer_string[0];
     }
     else
     {
-        sprintf(integer_string, "%d", direccion);
-        strcat(buffer,integer_string); 
+        //sprintf(integer_string, "%d", direccion);
+        integer_string=to_string(direccion);
+        //strcat(buffer,integer_string); 
+        buffer[5]=integer_string[0];
     }
    
     //if(dispara>0) balas(a,b, dispara);
