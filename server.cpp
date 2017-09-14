@@ -31,6 +31,11 @@ void aceptClient(int ConnectFD) {
    //bzero(buffer,256); //Llena de 0 la cadena
      buffer = new char[4];
      n = read(ConnectFD,buffer,sizeof(buffer));
+     string buffSize;
+     buffSize+=buffer[2];
+     buffSize+=buffer[3];
+     buffer = new char[stoi(buffSize)];
+     n = read(ConnectFD,buffer,sizeof(buffer));
      if (n < 0) perror("ERROR reading from socket");
      cout<<"Client "<<ConnectFD<< " replay: "<<buffer<<endl;
      //out<<"Server Write your Message "<<endl;
@@ -43,7 +48,8 @@ void aceptClient(int ConnectFD) {
 
      for(int i=0;i<7;i++)
       buffer[i] = id_usuario[i];
-     cout<<"Nuevo buffer: "<<buffer<<endl;;
+     cout<<"Nuevo buffer: "<<buffer<<endl;
+     
      for(int i=0;i<iD.size();i++)
      {
          cout<<"Enviando a Cliente: "<<iD[i]<<endl;

@@ -144,6 +144,8 @@
       
       if (buffer[1] =='M' || buffer[1] =='S') {
         buffer = new char[9];
+        buffer[2] = 0;
+        buffer[3] = 9;
         string ac ;
         string ab ;
         ac += buffer[4];

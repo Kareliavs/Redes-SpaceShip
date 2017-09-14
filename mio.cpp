@@ -191,38 +191,53 @@ void cuadrado( int x, int y, char letra )
     //teclas();
     //imprimir();
 }
-void main_no_main(char buffer[7])
+void main_no_main(char buffer[9])
 {
-    //cout<<"HEREL"<<endl;
-    //teclas();
-    char integer_string[32];
+    string integer_string;
 
     
-    if (dispara > 0) 
+    if (dispara > 0)
       buffer[0]='S'; //strcat(buffer,"1");
-    if (chat_flag) 
-      buffer[0]='C'; 
+    if (chat_flag)
+      buffer[0]='C';
     else
-      buffer[0]='M'; //strcat(buffer,"0");
+      buffer[0]='M';//strcat(buffer,"0");
 
-    if (a <= 9) 
-      strcat(buffer, "0");
-    
-    sprintf(integer_string, "%d", a);
-    strcat(buffer, integer_string);
+    integer_string=to_string(a);
+    if(a<=9)
+    {
+      buffer[3]='0';
+      buffer[4]=integer_string[0];
+    } 
+    else
+    {
+      buffer[3]=integer_string[0];
+      buffer[4]=integer_string[1];
+    }
 
-    if (b <= 9)
-      strcat(buffer,"0"); 
+    integer_string=to_string(b);
+
+    if(b<=9)
+    {
+      buffer[5]='0';
+      buffer[6]=integer_string[0]; 
+
+    } 
+    else
+    {
+      buffer[5]=integer_string[0];
+      buffer[6]=integer_string[1];
+    }
     
-    sprintf(integer_string, "%d", b);
-    strcat(buffer, integer_string); 
-    
-    if (dispara > 0) {
-        sprintf(integer_string, "%d", dispara);
-        strcat(buffer, integer_string);
-    } else {
-        sprintf(integer_string, "%d", direccion);
-        strcat(buffer, integer_string); 
+    if(dispara>0)
+    {
+        integer_string=to_string(dispara);
+        buffer[7]=integer_string[0];
+    }
+    else
+    {
+        integer_string=to_string(direccion);
+        buffer[7]=integer_string[0];
     }
    
     dispara=0;
