@@ -15,6 +15,8 @@ using namespace std;
 vector< vector<char> > matrix;
 int dimension=20;
 int dispara=0;
+bool chat_flag = false;
+string mensaje;
 int direccion=0;
 vector <char> naves;
 int tecla=0;
@@ -62,10 +64,13 @@ void imprimir ()
          printw("\n");
      }
      //cout<<"++++++++++++++++++++++++++++++++++++++++++++++++++++++w"<<endl;
+
      cbreak();
      refresh();
-     //cout<<endl;
-     
+     if (mensaje.size())
+     {
+       cout << mensaje << endl;
+     }     
 }
 
 void balas (int a , int b, int direccion)
@@ -139,6 +144,13 @@ int teclas ()
     //cbreak ();
     tecla = getch ();
 
+    if(tecla==99)
+    {
+      chat_flag = true; // Chat value letter 'c'
+
+      cout <<"\ningrese su mensaje: " << endl;
+      cin >> mensaje;
+    } 
     if(tecla==115)
     {
         a=(a+1)%(dimension-1);//S
@@ -186,7 +198,8 @@ void main_no_main(char buffer[7])
     char integer_string[32];
 
     
-    if(dispara>0)buffer[0]='S';//strcat(buffer,"1");
+    if(dispara>0 && dispara<100)buffer[0]='S';//strcat(buffer,"1");
+    if(chat_flag) buffer[0]='C'; 
     else         buffer[0]='M';//strcat(buffer,"0");
 
     if(a<=9) strcat(buffer,"0"); 

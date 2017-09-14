@@ -142,35 +142,43 @@
  {
     while(true)
     {
-      char buffer[7];
-      //cout<<"BufferREadS: "<<buffer<<endl;
+      char * buffer;
+      buffer = new char[2];
       n = read(SocketFD,buffer,sizeof(buffer));
       if (n < 0) perror("ERROR reading from socket");
-
-      string ac ;
-      string ab ;
-      ac += buffer[2];
-      ac += buffer[3];
-      ab += buffer[4];
-      ab += buffer[5];
-      //cout<<"ac: "<<ac<<" ab: "<<ab<<endl;
-      int a = stoi(ac);                  //De char a entero
-      int b = stoi(ab);
-      //cout<<"a: "<<a<<" b: "<<b<<endl;
       
+      if (buffer[1] =='M' || buffer[1] =='S') {
+        buffer = new char[7];
+        string ac ;
+        string ab ;
+        ac += buffer[2];
+        ac += buffer[3];
+        ab += buffer[4];
+        ab += buffer[5];
+        //cout<<"ac: "<<ac<<" ab: "<<ab<<endl;
+        int a = stoi(ac);                  //De char a entero
+        int b = stoi(ab);
+        //cout<<"a: "<<a<<" b: "<<b<<endl;
+        
 
-      cuadrado(a,b,'A'+ buffer[0]);
-      update(buffer[6],a,b,buffer[1]);
-      
-      if(buffer[1]=='S')balas(a,b, buffer[6]);
+        cuadrado(a,b,'A' + buffer[0]);
+        update(buffer[6], a, b, buffer[1]);
+        if (buffer[1] =='S') {
+          balas(a, b, buffer[6]);
+        }
+      } else if (buffer[1] =='C') {
+        buffer = new char[4+mensaje.size()];
+        
+      }
       imprimir();
-      update_bala(buffer[6],a,b);
+      update_bala(buffer[6], a, b);
 
       
       //cout<<"Server replay: "<<buffer<<endl;
      
     }
  }
+
 
  int main(void)
  {
@@ -189,7 +197,7 @@
 
    stSockAddr.sin_family = AF_INET;
    stSockAddr.sin_port = htons(1100);
-   Res = inet_pton(AF_INET, "192.168.1.2", &stSockAddr.sin_addr);
+   Res = inet_pton(AF_INET, "127.0.0.1", &stSockAddr.sin_addr);
 
    if (0 > Res)
    {
