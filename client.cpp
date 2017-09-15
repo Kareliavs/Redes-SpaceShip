@@ -27,9 +27,14 @@
   switch (dir) 
   {
       case '8'://Arriba
+
         for(int i=0; i<a;i++)///a es y 
-          {
+          {  
+             // imprimir();
+              //sleep(0.5);
               matrix[i][b]='_';
+              //sleep(0.99);
+              //imprimir();
           }
         break;
       case '2':///abajo
@@ -130,9 +135,9 @@
            buffer[i] = '\0';
        } 
        main_no_main(buffer);
+
        n = write(SocketFD, buffer, sizeof(buffer));
 
-       
        /* perform read write operations ... */
        
      }
@@ -161,8 +166,13 @@
 
       cuadrado(a,b,'A'+ buffer[0]);
       update(buffer[6],a,b,buffer[1]);
-      
-      if(buffer[1]=='S')balas(a,b, buffer[6]);
+
+      char buffer1[2];
+      if(buffer[1]=='S')balas(a,b, buffer[6],buffer1);
+      /*if(buffer1[0]=='H')
+      {
+        write(SocketFD, buffer1, sizeof(buffer1));
+      }*/
       imprimir();
       update_bala(buffer[6],a,b);
 
@@ -189,7 +199,7 @@
 
    stSockAddr.sin_family = AF_INET;
    stSockAddr.sin_port = htons(1100);
-   Res = inet_pton(AF_INET, "192.168.1.2", &stSockAddr.sin_addr);
+   Res = inet_pton(AF_INET, "192.168.199.171", &stSockAddr.sin_addr);
 
    if (0 > Res)
    {

@@ -18,6 +18,8 @@ int dispara=0;
 int direccion=0;
 vector <char> naves;
 int tecla=0;
+char space= '_';
+char hurt; 
 
 int mod (int a,int b )
 {
@@ -32,7 +34,7 @@ void inicia(int dim)
 {
 
      vector<char> linea;
-     char space= '_';
+     
      matrix.clear();
      for(int i =0; i<dim; i++)
      {
@@ -49,7 +51,7 @@ void imprimir ()
 {   
     //system ("/usr/bin/clear");
     //cout<<"*******************************************************"<<endl;
-   clear();
+    clear();
     for(int i =0; i<dimension; i++)
      {  
         for(int j =0; j<dimension; j++)
@@ -68,9 +70,9 @@ void imprimir ()
      
 }
 
-void balas (int a , int b, int direccion)
+void balas (int a , int b, int direccion,char buffer1[2])
 {   //inicia(dimension);
-    
+    hurt=0;
     char bala= '|';
     //cout<<"HERE"<<direccion<<endl;
     int dir=direccion-48;
@@ -80,22 +82,53 @@ void balas (int a , int b, int direccion)
 
           for(int i=0; i<a;i++)///a es y 
             {   
-                matrix[i][b]=bala;
+                if(matrix[i][b]!= space)
+                {
+                    hurt=matrix[i][b]-'A';
+                    matrix[i][b]=hurt;
+                }
+                else
+                    matrix[i][b]=bala;
                   /*sleep(1/2);
                 matrix[i][b]='-';*/
             }
           break;
         case 2:///abajo
           for(int i=a+2; i<dimension ;i++)
-            matrix[i][b]=bala;
+          {
+              if(matrix[i][b]!= space)
+              {
+                 hurt= matrix[i][b] -'A';
+                 matrix[i][b]=hurt;
+
+              }
+              else
+                 matrix[i][b]=bala;
+          }
           break;
         case 6: //derecha
           for(int i=b+2; i<dimension ;i++)
-            matrix[a][i]=bala;
+          {
+              if(matrix[a][i]!=space)
+              {
+                hurt= matrix[a][i]-'A';
+                matrix[a][i]=hurt;
+              }
+              else
+                matrix[a][i]=bala;
+          }
           break;
         case 4: ///izquierda
           for(int i=0; i<b ;i++)
-            matrix[a][i]=bala;
+          {
+              if(matrix[a][i]!=space)
+              {
+                hurt= matrix[a][i]-'A';
+                matrix[a][i]=hurt;
+              }
+              else
+                 matrix[a][i]=bala;
+          }
            break;
         case 9:
           for(int i=b+2; i<dimension;i++)//derecha
@@ -126,6 +159,14 @@ void balas (int a , int b, int direccion)
         
         
     }
+    if(hurt!=0)
+    {
+
+    buffer1[0]='H';
+    buffer1[1]=hurt;
+
+    }
+    else buffer1[0]='P';
     //imprimir();
 }
 

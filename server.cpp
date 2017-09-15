@@ -29,29 +29,84 @@ vector<int> iD;
 void aceptClient(int ConnectFD) {
   do {
    //bzero(buffer,256); //Llena de 0 la cadena
-     n = read(ConnectFD,buffer,sizeof(buffer));
+
+     n = read(ConnectFD,buffer,1);
+     char user[1];
+     sprintf(user,"%d",ConnectFD); //De entero a char
+
+
      if (n < 0) perror("ERROR reading from socket");
      cout<<"Client "<<ConnectFD<< " replay: "<<buffer<<endl;
+
+     char tipo;
+     tipo= buffer[0];
+              cout<<"aaaaaaaaaa :"<<tipo<<endl;
+
+    // cout<<"FUERA DEL IF"<<buffer[0]<<endl;
+     if(buffer[0]=='M' || buffer[0]=='S')
+      {
+        n = read(ConnectFD,buffer,5);
+        cout<<"DENTRO DEL IF"<<buffer[0]<<endl;
+        
+        char id_usuario[7];
+        char aux[7];
+
+        cout<<"id_usuario: "<<id_usuario<<endl;
+        cout<<"tipo :"<<tipo<<endl;
+        id_usuario[0]=user[0];
+        id_usuario[1]=tipo;
+        //strcat(id_usuario[0],tipo[0]);
+        id_usuario[2] = buffer[0];
+        id_usuario[3] = buffer[1];
+        id_usuario[4] = buffer[2];
+        id_usuario[5] = buffer[3];
+        id_usuario[6] = buffer[4];
+        
+
+        for(int i=0;i<7;i++)
+          buffer[i] = id_usuario[i];
+        
+        cout<<"Nuevo buffer: "<<buffer<<endl;
+        for(int i=0;i<iD.size();i++)
+         {
+             cout<<"Enviando a Cliente: "<<iD[i]<<endl;
+             //char user = '0' + ConnectFD;
+             //buffer[0] = user;
+             n = write(iD[i],buffer,sizeof(buffer));
+             if (n < 0) perror("ERROR writing to socket");
+          
+         }
+      }
+    /*else if(buffer[0]=='H')
+      {
+        n = read(ConnectFD,buffer,1);
+        char herido [3];
+        herido[0] = user[0];
+        herido[1] = 'H';
+        herido[2] = buffer[0];
+        char buffer[3];
+        for(int i=0;i<3;i++)
+          buffer[i] = herido[i];
+
+        cout<<"Buffer Herido: "<<buffer<<endl;
+        for(int i=0;i<iD.size();i++)
+         {
+             cout<<"Enviando a Cliente: "<<iD[i]<<endl;
+             //char user = '0' + ConnectFD;
+             //buffer[0] = user;
+             n = write(iD[i],buffer,sizeof(buffer));
+             if (n < 0) perror("ERROR writing to socket");
+          
+         }
+         cin>>n;
+
+      }*/
+    //cout<<"HOLA "<<endl;
+
      //out<<"Server Write your Message "<<endl;
      
-     char id_usuario[7];
-     char aux[7];
-     sprintf(id_usuario,"%d",ConnectFD); //De entero a char
-     cout<<"id_usuario: "<<id_usuario<<endl;
-     strcat(id_usuario,buffer);
-
-     for(int i=0;i<7;i++)
-      buffer[i] = id_usuario[i];
-     cout<<"Nuevo buffer: "<<buffer<<endl;;
-     for(int i=0;i<iD.size();i++)
-     {
-         cout<<"Enviando a Cliente: "<<iD[i]<<endl;
-         char user = '0' + ConnectFD;
-         buffer[0] = user;
-         n = write(iD[i],buffer,sizeof(buffer));
-         if (n < 0) perror("ERROR writing to socket");
-      
-     }
+    
+     
  
      /* perform read write operations ... */
 
