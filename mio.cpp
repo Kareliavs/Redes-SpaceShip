@@ -197,47 +197,47 @@ void main_no_main(char buffer[9])
 
     
     if (dispara > 0)
-      buffer[0]='S'; //strcat(buffer,"1");
+      buffer[1]='S'; //strcat(buffer,"1");
     if (chat_flag)
-      buffer[0]='C';
+      buffer[1]='C';
     else
-      buffer[0]='M';//strcat(buffer,"0");
+      buffer[1]='M';//strcat(buffer,"0");
 
     integer_string=to_string(a);
     if(a<=9)
     {
-      buffer[3]='0';
-      buffer[4]=integer_string[0];
+      buffer[4]='0';
+      buffer[5]=integer_string[0];
     } 
     else
     {
-      buffer[3]=integer_string[0];
-      buffer[4]=integer_string[1];
+      buffer[4]=integer_string[0];
+      buffer[5]=integer_string[1];
     }
 
     integer_string=to_string(b);
 
     if(b<=9)
     {
-      buffer[5]='0';
-      buffer[6]=integer_string[0]; 
+      buffer[6]='0';
+      buffer[7]=integer_string[0]; 
 
     } 
     else
     {
-      buffer[5]=integer_string[0];
-      buffer[6]=integer_string[1];
+      buffer[6]=integer_string[0];
+      buffer[7]=integer_string[1];
     }
     
     if(dispara>0)
     {
         integer_string=to_string(dispara);
-        buffer[7]=integer_string[0];
+        buffer[8]=integer_string[0];
     }
     else
     {
         integer_string=to_string(direccion);
-        buffer[7]=integer_string[0];
+        buffer[8]=integer_string[0];
     }
    
     dispara=0;

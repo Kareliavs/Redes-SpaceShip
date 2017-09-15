@@ -120,7 +120,7 @@
  {
      while(true)
      {
-       char buffer[7];
+       char buffer[9];
        //initscr ();
        teclas();
        //cbreak ();
@@ -146,8 +146,8 @@
         buffer = new char[9];
         buffer[2] = 0;
         buffer[3] = 9;
-        string ac ;
-        string ab ;
+        string ac;
+        string ab;
         ac += buffer[4];
         ac += buffer[5];
         ab += buffer[6];
@@ -158,10 +158,10 @@
         //cout<<"a: "<<a<<" b: "<<b<<endl;
         
 
-        cuadrado(a,b,'A' + buffer[0]);
+        cuadrado(a, b, 'A');
         update(buffer[8], a, b, buffer[1]);
         if (buffer[1] =='S') {
-          balas(a, b, buffer[6]);
+          balas(a, b, buffer[8]);
         }
       } else if (buffer[1] =='C') {
         buffer = new char[4+mensaje.size()];

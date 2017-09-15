@@ -34,28 +34,28 @@ void aceptClient(int ConnectFD) {
      string buffSize;
      buffSize+=buffer[2];
      buffSize+=buffer[3];
-     buffer = new char[stoi(buffSize)];
+     buffer = new char[200];//stoi(buffSize)];
      n = read(ConnectFD,buffer,sizeof(buffer));
      if (n < 0) perror("ERROR reading from socket");
      cout<<"Client "<<ConnectFD<< " replay: "<<buffer<<endl;
      //out<<"Server Write your Message "<<endl;
      
-     char id_usuario[7];
-     char aux[7];
-     sprintf(id_usuario,"%d",ConnectFD); //De entero a char
+     char id_usuario[1];
+     sprintf(id_usuario,"%d", ConnectFD); //De entero a char
      cout<<"id_usuario: "<<id_usuario<<endl;
-     strcat(id_usuario,buffer);
+     //strcat(id_usuario, buffer);
+     buffer[0] = id_usuario[0];
 
-     for(int i=0;i<7;i++)
-      buffer[i] = id_usuario[i];
+     /*for(int i=0;i<buffSize;i++)
+      buffer[i] = id_usuario[i];*/
      cout<<"Nuevo buffer: "<<buffer<<endl;
-     
+
      for(int i=0;i<iD.size();i++)
      {
          cout<<"Enviando a Cliente: "<<iD[i]<<endl;
          char user = '0' + ConnectFD;
          buffer[0] = user;
-         n = write(iD[i],buffer,sizeof(buffer));
+         n = write(iD[i],buffer,256);
          if (n < 0) perror("ERROR writing to socket");
       
      }
