@@ -20,6 +20,7 @@
  int Res;
  int SocketFD = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
  int n;
+ int s=7;
 
 
  void update_bala(char dir,int a, int b)
@@ -27,14 +28,9 @@
   switch (dir) 
   {
       case '8'://Arriba
-
         for(int i=0; i<a;i++)///a es y 
-          {  
-             // imprimir();
-              //sleep(0.5);
+          {
               matrix[i][b]='_';
-              //sleep(0.99);
-              //imprimir();
           }
         break;
       case '2':///abajo
@@ -121,37 +117,41 @@
  
  }
 
- void writeS()
- {
+ void writeS(char id[1])
+ {   
      while(true)
      {
        //cout<<"HERE"<<endl;
-       char buffer[7];
+       string buffer;
+      
        //initscr ();
        teclas();
        //cbreak ();
-       for (int i = 0; i < sizeof(buffer); i++)
-       {
-           buffer[i] = '\0';
-       } 
+       buffer="";
+       buffer[0]=id[0];
        main_no_main(buffer);
-
-       n = write(SocketFD, buffer, sizeof(buffer));
-
+       n = write(SocketFD, buffer.c_str(),7);
+      //cout<<"BUFFER "<<buffer<<endl;
+       //cin>>n;
        /* perform read write operations ... */
        
      }
 
  }
- void readS()
- {
+ void readS(char id[1])
+ {  
     while(true)
     {
-      char buffer[7];
+      string buffer;
+      char* buff;
+      buff=new char[s];
       //cout<<"BufferREadS: "<<buffer<<endl;
-      n = read(SocketFD,buffer,sizeof(buffer));
+      n = read(SocketFD,buff,7);
+      string aux(buff);
+      buffer=aux;
       if (n < 0) perror("ERROR reading from socket");
-
+      //cout<<"EXPLOTO"<<buffer<<endl;
+      //cin>>n;
       string ac ;
       string ab ;
       ac += buffer[2];
@@ -162,17 +162,12 @@
       int a = stoi(ac);                  //De char a entero
       int b = stoi(ab);
       //cout<<"a: "<<a<<" b: "<<b<<endl;
-      
+      //cout<<"A "<<a<<" B "<<b<<endl;
 
       cuadrado(a,b,'A'+ buffer[0]);
       update(buffer[6],a,b,buffer[1]);
-
-      char buffer1[2];
-      if(buffer[1]=='S')balas(a,b, buffer[6],buffer1);
-      /*if(buffer1[0]=='H')
-      {
-        write(SocketFD, buffer1, sizeof(buffer1));
-      }*/
+      
+      if(buffer[1]=='S')balas(a,b, buffer[6],id,SocketFD);
       imprimir();
       update_bala(buffer[6],a,b);
 
@@ -181,6 +176,7 @@
      
     }
  }
+
 
  int main(void)
  {
@@ -220,11 +216,13 @@
      close(SocketFD);
      exit(EXIT_FAILURE);
    }
+   char id_usuario[1];
+   int cosa_rara = read(SocketFD,id_usuario,1);
+   if (cosa_rara < 0) perror("ERROR reading from socket");
 
-
-   //imprimir();
-   std::thread t1 (readS); 
-   std::thread t2 (writeS); 
+   //cout<<"AQUI "<<id_usuario<<endl;
+   std::thread t1 (readS,id_usuario); 
+   std::thread t2 (writeS,id_usuario); 
    t1.join();
    t2.join();
      /*t1.join();
